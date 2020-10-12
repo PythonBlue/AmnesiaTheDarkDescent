@@ -231,6 +231,7 @@
     <ClInclude Include="include\graphics\MaterialType_Decal.h" />
     <ClInclude Include="include\graphics\MaterialType_Water.h" />
     <ClInclude Include="include\graphics\PostEffect_Bloom.h" />
+    <ClInclude Include="include\graphics\PostEffect_ColorGrading.h" />
     <ClInclude Include="include\graphics\PostEffect_ColorConvTex.h" />
     <ClInclude Include="include\graphics\PostEffect_ImageTrail.h" />
     <ClInclude Include="include\graphics\PostEffect_RadialBlur.h" />
@@ -534,6 +535,7 @@
     <ClCompile Include="sources\graphics\MaterialType_Decal.cpp" />
     <ClCompile Include="sources\graphics\MaterialType_Water.cpp" />
     <ClCompile Include="sources\graphics\PostEffect_Bloom.cpp" />
+    <ClCompile Include="sources\graphics\PostEffect_ColorGrading.cpp" />
     <ClCompile Include="sources\graphics\PostEffect_ColorConvTex.cpp" />
     <ClCompile Include="sources\graphics\PostEffect_ImageTrail.cpp" />
     <ClCompile Include="sources\graphics\PostEffect_RadialBlur.cpp" />

@@ -149,6 +149,7 @@
     <ClCompile Include="StdAfx.cpp" />
     <ClCompile Include="LuxKeyEntry.cpp" />
     <ClCompile Include="LuxArea.cpp" />
+    <ClCompile Include="LuxArea_ColorGrading.cpp" />
     <ClCompile Include="LuxArea_Examine.cpp" />
     <ClCompile Include="LuxArea_Flashback.cpp" />
     <ClCompile Include="LuxArea_Insanity.cpp" />
@@ -258,6 +259,7 @@
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="LuxKeyEntry.h" />
     <ClInclude Include="LuxArea.h" />
+    <ClInclude Include="LuxArea_ColorGrading.h" />
     <ClInclude Include="LuxArea_Examine.h" />
     <ClInclude Include="LuxArea_Flashback.h" />
     <ClInclude Include="LuxArea_Insanity.h" />
