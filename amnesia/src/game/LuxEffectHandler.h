@@ -157,6 +157,44 @@ private:
 	float mfFadeSpeed;
 };
 
+class cLuxEffect_ColorGrading : public iLuxEffect
+{
+    friend class cLuxEffectHandler_SaveData;
+public:
+    cLuxEffect_ColorGrading();
+
+    void InitializeLUT(tString asBaseEnvironmentLUT);
+    void EnterLUTEnvironment(tString asEnvironmentLUT, float afFadeTime);
+    void LeaveLUTEnvironment(tString asEnvironmentLUT);
+    void FadeGameplayLUTTo(tString asEnvironmentLUT, float afFadeTime);
+    void FadeOutGameplayLUT(float afFadeTime);
+
+    virtual bool IsAlwaysOn() { return true; }
+
+    void Update(float afTimeStep);
+    void OnDraw(float afFrameTime){}
+    void Reset();
+
+private:
+
+    void FadeFromTo( tString asFromTexture, tString asToTexture, float afFadeTime );
+
+    bool
+        mbIsCrossFading;
+
+    tStringList msEnvironmentLUTs;
+    tFloatList msEnvironmentLUTFadeTimes;
+
+    tString msGameplayLUT;
+    float mfGameplayFadeTime;
+
+    tString msFadeTargetLUT;
+
+    float mfCrossFadeAlpha;
+    bool mbIsFadingUp;
+    float mfFadeSpeed;
+};
+
 //-----------------------------------------
 
 class cLuxEffect_ShakeScreen_Shake
@@ -390,6 +428,7 @@ public:
 	cLuxEffect_ImageTrail *GetImageTrail(){ return mpImageTrail;}
 	cLuxEffect_ShakeScreen *GetScreenShake(){ return mpScreenShake;}
 	cLuxEffect_SepiaColor *GetSepiaColor(){ return mpSepiaColor;}
+    cLuxEffect_ColorGrading *GetColorGrading(){ return mpColorGrading;}
 	cLuxEffect_RadialBlur *GetRadialBlur(){ return mpRadialBlur;}
 	cLuxEffect_EmotionFlash *GetEmotionFlash(){ return mpEmotionFlash;}
 	cLuxEffect_PlayCommentary *GetPlayCommentary(){ return  mpPlayCommentary;}
@@ -402,6 +441,7 @@ private:
 	cLuxEffect_ImageTrail *mpImageTrail;
 	cLuxEffect_ShakeScreen *mpScreenShake;
 	cLuxEffect_SepiaColor *mpSepiaColor;
+    cLuxEffect_ColorGrading *mpColorGrading;
 	cLuxEffect_RadialBlur *mpRadialBlur;
 	cLuxEffect_EmotionFlash *mpEmotionFlash;
 	cLuxEffect_PlayCommentary *mpPlayCommentary;

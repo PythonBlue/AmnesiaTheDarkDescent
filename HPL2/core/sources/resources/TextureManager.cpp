@@ -94,6 +94,14 @@ namespace hpl {
 		return CreateSimpleTexture(asName,abUseMipMaps,aUsage, eTextureType_3D,alTextureSizeLevel);
 	}
 
+//-----------------------------------------------------------------------
+
+iTexture* cTextureManager::CreateFlattened3D(const tString& asName,bool abUseMipMaps, eTextureUsage aUsage,
+                                    unsigned int alTextureSizeLevel)
+{
+    return CreateSimpleTexture(asName,abUseMipMaps,aUsage, eTextureType_3D,alTextureSizeLevel,true);
+}
+
 	//-----------------------------------------------------------------------
 
 	iTexture* cTextureManager::CreateAnim(const tString& asFirstFrameName,bool abUseMipMaps,eTextureType aType,
@@ -361,57 +369,71 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	iTexture* cTextureManager::CreateSimpleTexture(	const tString& asName,bool abUseMipMaps, 
-													eTextureUsage aUsage, eTextureType aType,
-													unsigned int alTextureSizeLevel)
-	{
-		tWString sPath;
-		iTexture* pTexture;
-		
-		BeginLoad(asName);
+iTexture* cTextureManager::CreateSimpleTexture(    const tString& asName,bool abUseMipMaps,
+                                                eTextureUsage aUsage, eTextureType aType,
+                                                unsigned int alTextureSizeLevel,
+                                                bool isFlattened3d)
+{
+    tWString sPath;
+    iTexture* pTexture;
+    
+    BeginLoad(asName);
+    
+    pTexture = FindTexture2D(asName,sPath);
+    
+    if(pTexture==NULL && sPath!=_W(""))
+    {
+        //Load the bitmap
+        cBitmap *pBmp;
+        pBmp = mpBitmapLoaderHandler->LoadBitmap(sPath,0);
+        if(pBmp==NULL)
+        {
+            Error("Texture manager Couldn't load bitmap '%s'\n", cString::To8Char(sPath).c_str());
+            EndLoad();
+            return NULL;
+        }
+        
+        //Create the texture and load from bitmap
+        pTexture = mpGraphics->GetLowLevel()->CreateTexture(asName,aType,aUsage);
+        pTexture->SetFullPath(sPath);
+        
+        pTexture->SetUseMipMaps(abUseMipMaps);
+        pTexture->SetSizeDownScaleLevel(alTextureSizeLevel);
+        
+        if ( isFlattened3d )
+        {
+            cVector3l size = pBmp->GetSize();
 
-		pTexture = FindTexture2D(asName,sPath);
-
-		if(pTexture==NULL && sPath!=_W(""))
-		{
-			//Load the bitmap
-			cBitmap *pBmp;
-			pBmp = mpBitmapLoaderHandler->LoadBitmap(sPath,0);
-			if(pBmp==NULL)
-			{
+			if (size.z != 1 | size.y != size.x * size.x)
 				Error("Texture manager Couldn't load bitmap '%s'\n", cString::To8Char(sPath).c_str());
-				EndLoad();
-				return NULL;
-			}
-
-			//Create the texture and load from bitmap
-			pTexture = mpGraphics->GetLowLevel()->CreateTexture(asName,aType,aUsage);
-			pTexture->SetFullPath(sPath);
-			
-			pTexture->SetUseMipMaps(abUseMipMaps);
-			pTexture->SetSizeDownScaleLevel(alTextureSizeLevel);
-			
-			if(pTexture->CreateFromBitmap(pBmp)==false)
-			{
-				hplDelete(pTexture);
-				hplDelete(pBmp);
-				EndLoad();
-				return NULL;
-			}
-
-			//Bitmap is no longer needed so delete it.
-			hplDelete(pBmp);
-			
-			mlMemoryUsage += pTexture->GetMemorySize();
-			AddResource(pTexture);
-		}
-
-		if(pTexture)pTexture->IncUserCount();
-		else Error("Couldn't texture '%s'\n",asName.c_str());
-		
-		EndLoad();
-		return pTexture;
-	}
+            
+            size.y = size.x;
+            size.z = size.x;
+            
+            pBmp->SetSize(size);
+        }
+        
+        if(pTexture->CreateFromBitmap(pBmp)==false)
+        {
+            hplDelete(pTexture);
+            hplDelete(pBmp);
+            EndLoad();
+            return NULL;
+        }
+        
+        //Bitmap is no longer needed so delete it.
+        hplDelete(pBmp);
+        
+        mlMemoryUsage += pTexture->GetMemorySize();
+        AddResource(pTexture);
+    }
+    
+    if(pTexture)pTexture->IncUserCount();
+    else Error("Couldn't texture '%s'\n",asName.c_str());
+    
+    EndLoad();
+    return pTexture;
+}
 
 	//-----------------------------------------------------------------------
 	
