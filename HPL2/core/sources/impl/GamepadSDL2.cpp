@@ -290,14 +290,18 @@ namespace hpl {
 		{
 		case eGamepadInputType_Button:
 			{
+#ifndef __APPLE__
 				if(input.mfInputValue==0.0f)
 					mlstButtonsReleased.remove(input);
 				else
 					mlstButtonsPressed.remove(input);
+#endif
 			}
 			break;
 		case eGamepadInputType_Axis:
+#ifndef __APPLE__
 			mlstAxisChanges.remove(input);
+#endif
 			break;
 		}
 
@@ -320,7 +324,9 @@ namespace hpl {
 	{
 		cGamepadInputData button = mlstButtonsPressed.front();
 		mlstButtonsPressed.pop_front();
+#ifndef __APPLE__
 		mlstInputUpdates.remove(button);
+#endif
 
 		return button;
 	}
@@ -338,7 +344,9 @@ namespace hpl {
 	{
 		cGamepadInputData button = mlstButtonsReleased.front();
 		mlstButtonsReleased.pop_front();
+#ifndef __APPLE__
 		mlstInputUpdates.remove(button);
+#endif
 
 		return button;
 	}
@@ -373,8 +381,9 @@ namespace hpl {
 	{
 		cGamepadInputData axis = mlstAxisChanges.front();
 		mlstAxisChanges.pop_front();
+#ifndef __APPLE__
 		mlstInputUpdates.remove(axis);
-
+#endif
 		return axis;
 	}
 

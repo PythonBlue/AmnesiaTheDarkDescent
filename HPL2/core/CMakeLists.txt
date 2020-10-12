@@ -239,7 +239,7 @@ source_group("Platform" REGULAR_EXPRESSION "\\/impl\\/Platform.+")
 
 FindPrebuiltLibrary(NEWTON_LIBRARY Newton)
 FindPrebuiltLibrary(ANGELSCRIPT_LIBRARY angelscript)
-FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-static)
+FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2014.2-static)
 FindPrebuiltLibrary(GLEW_LIBRARY GLEW)
 FindPrebuiltLibrary(THEORA_LIBRARY theora)
 FindPrebuiltLibrary(DEVIL_LIBRARY IL)
@@ -344,7 +344,6 @@ FUNCTION(AddTestTarget target_name)
     )
 ENDFUNCTION()
 
-add_subdirectory(../tests tests)
 add_subdirectory(../tools tools)
 
 
