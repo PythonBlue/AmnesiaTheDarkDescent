@@ -37,7 +37,7 @@ For building on Mac (and hopefully Linux):
 
 Additional Note (by Python Blue)
 -------------------
-this particular branch implements the color grading post effect from A Machine for Pigs. That in mind, you will need the following AMFP assets in your TDD directory as well or else the game won't launch:
+This particular branch implements the color grading post effect from A Machine for Pigs. That in mind, you will need the following AMFP assets, not included, in your TDD directory as well or else the game won't launch:
 
 -the GLSL shader for the effect (core/shaders/posteffect_color_grading_frag)
 -the folder of gradingmaps (textures/gradingmaps), or at least "textures/gradingmaps/colorgrading_base.png"
