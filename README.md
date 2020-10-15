@@ -33,3 +33,11 @@ For building on Mac (and hopefully Linux):
 	d. Make sure you either set the C Language Dialect to GNU99, or set the C++ Standard Library to libc++; otherwise, errors relating to the std libraries will be generated. Early tests did the latter, which is why I don't recommend building for 10.6 like intended (libc++ is only an option for 10.7 onward).
 
 4. Build and test. I recommend building only one of the projects at a time in case of issues.
+
+
+Additional Note (by Python Blue)
+-------------------
+this particular branch implements the color grading post effect from A Machine for Pigs. That in mind, you will need the following AMFP assets in your TDD directory as well or else the game won't launch:
+
+-the GLSL shader for the effect (core/shaders/posteffect_color_grading_frag)
+-the folder of gradingmaps (textures/gradingmaps), or at least "textures/gradingmaps/colorgrading_base.png"
