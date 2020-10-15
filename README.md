@@ -22,7 +22,7 @@ For building the game in Windows, open the Lux solution (in amnesia/src/game) in
 
 For building on Mac (and hopefully Linux):
 
-1. Open the amnesia/src/game directory in CMake and configure. If you're running a 64-bit-only Mac such as Catalina, make sure "IS_APPLE_64" is checked in the options and reconfigure.
+1. Open the amnesia/src directory in CMake and configure. If you're running a 64-bit-only Mac such as Catalina, make sure "IS_APPLE_64" is checked in the options and reconfigure.
 
 2. Generate for the compiler of your choice. If running Mac, I recommend XCode in case of issues. If you're not running macOS Catalina or later, then disregard the next step.
 
