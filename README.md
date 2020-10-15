@@ -14,3 +14,22 @@ We encourage everyone to contribute code to this project, so just sign up for a 
 License Information
 -------------------
 All code is under the GPL Version 3 license. Read the LICENSE file for terms of use of the license.
+
+
+Installation (notes by Python Blue)
+-------------------
+For building the game in Windows, open the Lux solution (in amnesia/src/game) in Visual Studio 2010 and compile from there. Building the editors, sadly, are more intensive as I've discovered they were made for earlier versions of Visual Studio than 2010 and therefore have several incompatibilities depending on the tool being built, a process I'm still trying to look into myself.
+
+For building on Mac (and hopefully Linux):
+
+1. Open the amnesia/src/game directory in CMake and configure. If you're running a 64-bit-only Mac such as Catalina, make sure "IS_APPLE_64" is checked in the options and reconfigure.
+
+2. Generate for the compiler of your choice. If running Mac, I recommend XCode in case of issues. If you're not running macOS Catalina or later, then disregard the next step.
+
+3. Open the newly generated project in XCode, making sure the following is set in Build Settings for the entire project before building:
+	a. The architecture must be x86_64. If you checked "IS_APPLE_64" earlier, this should not be an issue.
+	b. The SDK might not be found. If so, set it to the default macOS SDK.
+	c. Deployment target must be set to a newer OS version due to a fixed AngelScript library, which I deployed to 10.9. Earlier versions like the intended 10.6 might be possible, but don't depend on it without the AngelScript source code.
+	d. Make sure you either set the C Language Dialect to GNU99, or set the C++ Standard Library to libc++; otherwise, errors relating to the std libraries will be generated. Early tests did the latter, which is why I don't recommend building for 10.6 like intended (libc++ is only an option for 10.7 onward).
+
+4. Build and test. I recommend building only one of the projects at a time in case of issues.
